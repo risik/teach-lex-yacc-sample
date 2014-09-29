@@ -11,7 +11,7 @@ YACC   = yacc
 LN     = gcc
 LNFLAGS=
 
-SRC    = scan.l smd.y
+SRC    = scan.l cmd.y
 
 OBJ    = scan.o cmd.o
 

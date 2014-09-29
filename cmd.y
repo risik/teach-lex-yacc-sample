@@ -5,14 +5,14 @@
 %token TSTART TSTOP
 %%
 statements  : statements statement | ;
-statement   : TSTART     
+statement   : TSTART
     { printf("Stop command received\n"); }
-            | TSTOP      
+            | TSTOP
     { printf("Start command received\n"); }
             ;
 %%
 int main() { return yyparse(); }
-int yyerror(char *message) 
+int yyerror(char *message)
 {
-    fprintf(stderr, "ERROR: %s", message);
+    fprintf(stderr, "ERROR: %s\n", message);
 }

@@ -1,29 +1,32 @@
 # Makefile using Lex/Yacc to build
 
 CC     = gcc
-CFLAGS = -c
+CFLAGS =
 
 LEX    = lex
 LFLAGS =
 
+YACC   = yacc
+
 LN     = gcc
 LNFLAGS=
 
-SRC    = scan.l
-OBJ    = scan.o
+SRC    = scan.l smd.y
 
-all:	scan
+OBJ    = scan.o cmd.o
+
+all:	cmd
 
 test: all
-	./scan < test1.txt
+	./cmd < test1.txt
 
-scan:	$(OBJ)
-	$(LN) $(LNFLAGS) -o scan $(OBJ)
+cmd: $(OBJ)
+	$(LN) $(LNFLAGS) -o cmd $(OBJ)
 
-scan.o:	scan.c
-	$(CC) $(CFLAGS) -o scan.o scan.c
-
-scan.c: scan.l
+scan.c: scan.l cmd.h
 	$(LEX) $(LFLAGS) -o scan.c scan.l
 
-clean:; @rm -f scan scan.c *.o
+cmd.c cmd.h: cmd.y
+	$(YACC) --output=cmd.c --defines=cmd.h cmd.y
+
+clean:; @rm -f cmd scan.c cmd.c cmd.h *.o

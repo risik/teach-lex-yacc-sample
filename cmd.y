@@ -6,9 +6,9 @@
 %%
 statements  : statements statement | ;
 statement   : TSTART
-    { printf("Stop command received\n"); }
-            | TSTOP
     { printf("Start command received\n"); }
+            | TSTOP
+    { printf("Stop command received\n"); }
             ;
 %%
 int main() { return yyparse(); }
